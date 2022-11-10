@@ -1,0 +1,50 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script>
+	var myArray = []
+
+	$.ajax({
+		method:'GET',
+		url:'http://127.0.0.1:8000/api/land/list/',
+        dataType: 'json',
+        crossDomain: true,
+        contentType:'application/json',
+        headers: {
+            "Access-Control-Allow-Origin":"*"
+        },
+
+		success:function(response){
+			myArray = response.data
+			buildTable(myArray)
+			console.log(myArray)
+		}
+	})
+
+
+
+	function buildTable(data){
+		var table = document.getElementById('myTable')
+
+		for (var i = 0; i < data.length; i++){
+			var row = `<tr>
+							<td>${data[i].price}</td>
+							<td>${data[i].parsel}</td>
+							<td>${data[i].island}</td>
+                            <td>${data[i].square_meters}</td>
+							<td>${data[i].description}</td>
+							<td>${data[i].sales_type}</td>
+							<td>${data[i].is_type}</td>
+							<td>${data[i].name}</td>
+                            <td>${data[i].title}</td>
+							<td>${data[i].images}</td>
+
+					  </tr>`
+			table.innerHTML += row
+
+
+		}
+	}
+
+</script>
